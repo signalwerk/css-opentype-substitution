@@ -39,7 +39,7 @@
       p {
         color: #222;
       }
-      
+
       small {
         font-size: 0.8rem;
       }
@@ -104,6 +104,10 @@
         color: red;
       }
 
+      .red {
+        color: red;
+      }
+
       .renderers {
         display: block;
       }
@@ -150,17 +154,14 @@
         </p>
 
 
-
-
           <div class="bug bug-active">AB</div>
-
 
           <p>
             Expected:
           </p>
-          <div class="bug bug-active">&mdash;B</div>
-
-
+          <div class="bug">
+            <span class="red">&mdash;</span><span>B</span>
+          </div>
 
 
       </div>
