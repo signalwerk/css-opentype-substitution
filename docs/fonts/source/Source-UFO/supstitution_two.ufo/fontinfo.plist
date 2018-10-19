@@ -3,17 +3,19 @@
 <plist version="1.0">
 <dict>
   <key>ascender</key>
-  <integer>750</integer>
+  <integer>670</integer>
   <key>capHeight</key>
   <integer>700</integer>
+  <key>copyright</key>
+  <string></string>
   <key>descender</key>
   <integer>-250</integer>
   <key>familyName</key>
   <string>Supstitution</string>
   <key>italicAngle</key>
-  <integer>0</integer>
+  <integer>-0</integer>
   <key>openTypeHeadCreated</key>
-  <string>2018/10/19 15:10:21</string>
+  <string>2018/10/19 16:10:21</string>
   <key>openTypeHeadFlags</key>
   <array>
   </array>
@@ -25,6 +27,20 @@
   <integer>0</integer>
   <key>openTypeHheaLineGap</key>
   <integer>0</integer>
+  <key>openTypeNameDesigner</key>
+  <string></string>
+  <key>openTypeNameDesignerURL</key>
+  <string></string>
+  <key>openTypeNameLicense</key>
+  <string></string>
+  <key>openTypeNameLicenseURL</key>
+  <string></string>
+  <key>openTypeNameManufacturer</key>
+  <string></string>
+  <key>openTypeNameManufacturerURL</key>
+  <string></string>
+  <key>openTypeNameDescription</key>
+  <string></string>
   <key>openTypeNamePreferredFamilyName</key>
   <string>Supstitution</string>
   <key>openTypeNamePreferredSubfamilyName</key>
@@ -60,17 +76,19 @@
     <integer>2</integer>
   </array>
   <key>openTypeOS2TypoAscender</key>
-  <integer>750</integer>
+  <integer>670</integer>
   <key>openTypeOS2TypoDescender</key>
   <integer>-250</integer>
   <key>openTypeOS2TypoLineGap</key>
   <integer>100</integer>
+  <key>openTypeOS2VendorID</key>
+  <string></string>
   <key>openTypeOS2WeightClass</key>
   <integer>400</integer>
   <key>openTypeOS2WidthClass</key>
   <integer>5</integer>
   <key>openTypeOS2WinAscent</key>
-  <integer>750</integer>
+  <integer>670</integer>
   <key>openTypeOS2WinDescent</key>
   <integer>250</integer>
   <key>postscriptBlueFuzz</key>
@@ -104,6 +122,8 @@
   <string>regular</string>
   <key>styleName</key>
   <string>Regular</string>
+  <key>trademark</key>
+  <string></string>
   <key>unitsPerEm</key>
   <integer>1000</integer>
   <key>versionMajor</key>

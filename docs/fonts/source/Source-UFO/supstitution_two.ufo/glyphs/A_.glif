@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glyph name="A" format="1">
+  <advance width="550" height="750"/>
+  <unicode hex="0041"/>
+    <anchor name="TCenter" x="275" y="795"/>
+  <outline>
+    <contour>
+      <point x="44" y="6" type="line"/>
+      <point x="82" y="-6" type="line"/>
+      <point x="106" y="70"/>
+      <point x="130" y="145"/>
+      <point x="155" y="220" type="curve"/>
+      <point x="395" y="220" type="line"/>
+      <point x="468" y="-6" type="line"/>
+      <point x="506" y="6" type="line"/>
+      <point x="293" y="670" type="line"/>
+      <point x="257" y="670" type="line"/>
+    </contour>
+    <contour>
+      <point x="168" y="260" type="line"/>
+      <point x="203" y="371"/>
+      <point x="239" y="482"/>
+      <point x="275" y="594" type="curve"/>
+      <point x="382" y="260" type="line"/>
+    </contour>
+    <contour>
+      <point x="275" y="795" type="move" name="TCenter"/>
+    </contour>
+  </outline>
+</glyph>

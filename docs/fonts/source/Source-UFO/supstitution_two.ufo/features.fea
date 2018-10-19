@@ -1,6 +1,5 @@
 languagesystem DFLT dflt;
 languagesystem latn dflt;
 feature liga { 
- sub A' B by emdash;
- sub A A by emdash;
+ sub A' B by C;
 } liga; 
