@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <title>Typografie</title>
+    <meta name="description" content="Bug – OT substitution">
+    <meta name="viewport" content="width=device-width">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+
+    <style>
+
+      @font-face {
+        font-family: 'supstitution';
+        src: url('./fonts/web/supstitution.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      html {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 1.4;
+        color: #222;
+      }
+
+      a {
+        text-decoration: none;
+
+      }
+
+      ::selection {
+        background: red;
+        text-shadow: none;
+      }
+
+      p {
+        color: #222;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #444;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      h3 {
+        font-size: 0.8rem;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+      }
+
+      .container,
+      .header {
+        font-weight: 400;
+        width: 92%;
+        max-width: 38rem;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+
+      .example {
+        padding-bottom: 3rem;
+        border-top: 2px solid #222;
+      }
+
+      .bug {
+        font-family: 'supstitution';
+        font-size: 4rem;
+      }
+
+      .bug-active:first-letter  {
+        color: red;
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <div class="header">
+      <h1>Bug Report</h1>
+      <h2>CSS Styling changes OpenType substitution</h2>
+    </div>
+
+    <div class="container">
+
+
+      <div class="example">
+        <h3>
+          Problem
+        </h3>
+        <p>
+          A string has two characters:
+        </p>
+
+        <div class="bug">A B</div>
+        <p>
+          If the characters print next to each other the first character is replaced by the ligature feature of the font.
+          <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/features_ko#liga">
+            See OpenType Docs (Microsoft) – Registered features.
+          </a>
+        </p>
+        <div class="bug">AB</div>
+
+        <p>
+          If the string gets formated in CSS with
+          <pre>
+            <code>
+              p::first-letter { color: red; }
+            </code>
+          </pre>
+
+          the result looks like:
+        </p>
+
+
+
+
+          <div class="bug bug-active">AB</div>
+
+
+          <p>
+            Expected:
+          </p>
+          <div class="bug bug-active">&mdash;B</div>
+
+
+
+
+      </div>
+
+    </div>
+  </body>
+</html>

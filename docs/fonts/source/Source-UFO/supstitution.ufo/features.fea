@@ -1,0 +1,6 @@
+languagesystem DFLT dflt;
+languagesystem latn dflt;
+feature liga { 
+ sub A' B by emdash;
+ sub A A by emdash;
+} liga; 
