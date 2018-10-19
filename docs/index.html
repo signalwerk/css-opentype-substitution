@@ -76,6 +76,7 @@
 
       h4 {
         font-size: 1rem;
+        margin-top: 2rem;
       }
 
       .container,
@@ -112,6 +113,28 @@
         display: block;
       }
 
+      /* thx github */
+
+      pre,
+      code {
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        font-size: 85%;
+      }
+
+      code {
+        padding: 0;
+        margin: 0;
+      }
+
+      pre {
+        padding: 1em;
+        overflow: auto;
+        font-size: 85%;
+        line-height: 1.45;
+      }
+
+
     </style>
   </head>
 
@@ -130,10 +153,12 @@
           Problem
         </h3>
         <p>
-          A string has two characters:
+          A string has the following two characters:
         </p>
 
         <div class="bug">A B</div>
+
+
         <p>
           If the characters render next to each other the first character is replaced by the ligature feature of the font.
           <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/features_ko#liga">
@@ -144,11 +169,7 @@
 
         <p>
           If the string gets formated in CSS with
-          <pre>
-            <code>
-p::first-letter { color: red; }
-            </code>
-          </pre>
+          <pre><code>p::first-letter { color: red; }</code></pre>
 
           your current browser renders like this:
         </p>
@@ -165,6 +186,63 @@ p::first-letter { color: red; }
 
 
       </div>
+
+      <div class="example">
+        <h3>
+          Step by Step
+        </h3>
+
+        <h4>
+          HTML
+        </h4>
+
+        <p>We have content like:</p>
+        <pre><code>&lt;p&gt;AB&lt;/p&gt;</code></pre>
+        <small>
+            Notation: HTML
+        </small>
+
+        <h4>
+          Font
+        </h4>
+        <p>The font has a substitution (inside the <code>liga</code> feature of the font):</p>
+
+        <pre><code>sub A' B by emdash;</code></pre>
+        <small>
+          <a href="https://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html">
+            Notation: OpenType Feature File Specification
+          </a>
+        </small>
+
+
+        <h4>
+          Rendering (correct)
+        </h4>
+
+        <p>The renderer therefore shows: </p>
+        <pre><code>&lt;p&gt;&amp;mdash;B&lt;/p&gt;</code></pre>
+        <small>
+            Notation: like HTML but it happens in the font-feature. In the HTML is still «A» and not «&mdash;».
+        </small>
+
+
+
+        <h4>
+          Rendering (incorrect)
+        </h4>
+
+        <p>With CSS formatting on the first letter (<code>p::first-letter</code>) the renderer shows: </p>
+        <pre><code>&lt;p&gt;AB&lt;/p&gt;</code></pre>
+
+        <p>instead of: </p>
+        <pre><code>&lt;p&gt;&amp;mdash;B&lt;/p&gt;</code></pre>
+        <small>
+          Notation: like HTML
+        </small>
+
+      </div>
+
+
 
 
       <div class="example">
@@ -255,7 +333,7 @@ p::first-letter { color: red; }
           <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=897197">
             Chromium Bug Ticket
           </a>
-          
+
         </p>
 
 
