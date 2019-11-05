@@ -100,6 +100,22 @@
       border-top: 2px solid #222;
     }
 
+    .fixed {
+      position: relative;
+    }
+    .fixed__old {
+      opacity: 0.15;
+    }
+    .fixed__new {
+      position: absolute;
+      top: 2rem;
+      left: 1rem;
+      background-color: black;
+      color: white;
+      padding: .2em .5em;
+      border-radius: 0.5em;
+    }
+
     .bug {
       font-family: 'supstitution';
       font-size: 4rem;
@@ -234,11 +250,21 @@
         Incorrect rendering
       </h4>
 
-      <small>
-        Google Chrome 69.0.3497.100 on MacOS 10.14
-      </small>
+      <div class="fixed">
+        <div class="fixed__old">
+          <small>
+            Google Chrome 69.0.3497.100 on MacOS 10.14
+          </small>
 
-      <img class="renderers" src="./img/Chrome_69.0.3497.100.png" alt="Rendering InDesign 13.1">
+          <img class="renderers" src="./img/Chrome_69.0.3497.100.png" alt="Rendering Chrome 69">
+        </div>
+
+        <div class="fixed__new">
+          <small>
+            Fixed in Google Chrome 76 and newer
+          </small>
+        </div>
+      </div>
 
       <small>
         Safari Mobile 12.0 on iOS 12.0.1
@@ -259,6 +285,13 @@
       <h4>
         Correct rendering
       </h4>
+
+      <small>
+        Google Chrome 78.0.3904.87 on MacOS 10.14
+      </small>
+
+      <img class="renderers" src="./img/Chrome_78.0.3904.87.png" alt="Rendering Chrome 78">
+
 
       <small>
         Firefox 61.0.2 on MacOS 10.14
