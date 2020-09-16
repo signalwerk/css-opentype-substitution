@@ -121,6 +121,10 @@
       font-size: 4rem;
     }
 
+    .bug-active {
+      display: inline-block;
+    }
+
     .bug-active:first-letter {
       color: red;
     }
@@ -137,6 +141,12 @@
       width: auto;
     }
 
+    .hidden {
+      display: inline-block;
+      overflow: hidden;
+      width: 0;
+    }
+
     /* thx github */
     pre,
     code {
@@ -146,15 +156,21 @@
     }
 
     code {
-      margin: 0;
       padding: 0.2em 0.4em;
     }
 
     pre {
       padding: 1em;
+      margin: 1em 0;
+      margin-bottom: 0.6em;
       overflow: auto;
       font-size: 85%;
       line-height: 1.45;
+    }
+
+    pre + small {
+      margin-bottom: 2.5em;
+      display: block;
     }
   </style>
 </head>
@@ -166,10 +182,32 @@
   </div>
 
   <div class="container">
-
     <div class="example">
       <h3>
         Problem
+      </h3>
+
+      <p>
+        The current browser renders like this:
+      </p>
+
+      <div class="bug">
+        <span class="red">A</span><span>B</span>
+        <span class="bug-active">AB</span>
+      </div>
+
+      <p>
+        Expected:
+      </p>
+      <div class="bug">
+        <span class="red">C</span><span>B</span>
+        <span class="red">C</span><span>B</span>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>
+        Details
       </h3>
 
       <h4>
@@ -179,10 +217,10 @@
         A string has the following characters:
       </p>
 
-      <div class="bug">A B</div>
-      <pre><code>&lt;p&gt;A B&lt;/p&gt;</code></pre>
+      <div class="bug">A<span class="hidden"> </span>B</div>
+      <pre><code>&lt;p&gt;A<span class="hidden"> </span>B&lt;/p&gt;</code></pre>
       <small>
-        Notation: HTML
+        Notation: HTML <br />((There is an additional space between the characters in the code. This is to prevent the substitution here.))
       </small>
 
       <h4>
@@ -206,20 +244,19 @@
       <p>The renderer therefore shows: </p>
       <div class="bug">AB</div>
 
-      <pre><code>&lt;p&gt;CB&lt;/p&gt;</code></pre>
-      <small>
-        Notation: like HTML but it happens in the font-feature. In the HTML is still <code>A</code> and not <code>C</code>.
-      </small>
-
       <h4>
-        Formatting
+        Formatting A · span
       </h4>
       <p>
         If the string gets formated in CSS with
       </p>
-      <pre><code>p::first-letter { color: red; }</code></pre>
+      <pre><code>.red { color: red; }</code></pre>
       <small>
         Notation: CSS
+      </small>
+      <pre><code>&lt;span class="red"&gt;A&lt;/span&gt;&lt;span&gt;B&lt;/span&gt;</code></pre>
+      <small>
+        Notation: HTML
       </small>
       <p>
         The current browser renders like this:
@@ -233,10 +270,35 @@
       <div class="bug">
         <span class="red">C</span><span>B</span>
       </div>
-      <pre><code>&lt;p&gt;CB&lt;/p&gt;</code></pre>
+
+
+      <h4>
+        Formatting B · pseudo-class
+      </h4>
+      <p>
+        If the string gets formated in CSS with
+      </p>
+      <pre><code>.bug-active::first-letter { color: red; }</code></pre>
       <small>
-        Notation: like HTML
+        Notation: CSS
       </small>
+      <pre><code>&lt;p class="bug-active"&gt;AB&lt;/p&gt;</code></pre>
+      <small>
+        Notation: HTML
+      </small>
+      <p>
+        The current browser renders like this:
+      </p>
+
+      <div class="bug bug-active">AB</div>
+
+      <p>
+        Expected:
+      </p>
+      <div class="bug">
+        <span class="red">C</span><span>B</span>
+      </div>
+
     </div>
 
     <div class="example">
