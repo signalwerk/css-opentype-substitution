@@ -1,406 +1,453 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bug – OT substitution</title>
+    <meta
+      name="description"
+      content="Bug Report – CSS Styling changes OpenType substitution"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="utf-8">
-  <title>Bug – OT substitution</title>
-  <meta name="description" content="Bug Report – CSS Styling changes OpenType substitution">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
 
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet' type='text/css'>
+    <style>
+      @font-face {
+        font-family: "supstitution";
+        src: url("./fonts/web/supstitution.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+      }
 
-  <style>
-    @font-face {
-      font-family: 'supstitution';
-      src: url('./fonts/web/supstitution.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-    }
+      html {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 1.4;
+        color: #222;
+      }
 
-    html {
-      font-family: "Open Sans", sans-serif;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 1.4;
-      color: #222;
-    }
+      a {
+        text-decoration: none;
+        color: #456ead;
+      }
 
-    a {
-      text-decoration: none;
-      color: #456ead;
-    }
+      a:hover {
+        color: inherit;
+      }
 
-    a:hover {
-      color: inherit;
-    }
+      ::selection {
+        background: #e02fb4;
+        text-shadow: none;
+      }
 
-    ::selection {
-      background: #e02fb4;
-      text-shadow: none;
-    }
+      p {
+        color: #222;
+      }
 
-    p {
-      color: #222;
-    }
+      small {
+        font-size: 0.8rem;
+      }
 
-    small {
-      font-size: 0.8rem;
-    }
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #444;
+        font-weight: 700;
+        margin-top: 0;
+      }
 
-    h1,
-    h2,
-    h3,
-    h4 {
-      color: #444;
-      font-weight: 700;
-      margin-top: 0;
-    }
+      h1,
+      h3 {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
 
-    h1,
-    h3 {
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+      h1 {
+        font-size: 1.2rem;
+      }
 
-    h1 {
-      font-size: 1.2rem;
-    }
+      h2 {
+        font-size: 1rem;
+        font-weight: 400;
+      }
 
-    h2 {
-      font-size: 1rem;
-      font-weight: 400;
-    }
+      h3 {
+        font-size: 0.8rem;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+      }
 
-    h3 {
-      font-size: 0.8rem;
-      padding-top: 1rem;
-      padding-bottom: 2rem;
-    }
+      h4 {
+        font-size: 1rem;
+        margin-top: 2rem;
+      }
 
-    h4 {
-      font-size: 1rem;
-      margin-top: 2rem;
-    }
+      .container,
+      .header {
+        font-weight: 400;
+        width: 92%;
+        max-width: 38rem;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
 
-    .container,
-    .header {
-      font-weight: 400;
-      width: 92%;
-      max-width: 38rem;
-      position: relative;
-      margin-left: auto;
-      margin-right: auto;
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
+      .example {
+        padding-bottom: 3rem;
+        border-top: 2px solid #222;
+      }
 
-    .example {
-      padding-bottom: 3rem;
-      border-top: 2px solid #222;
-    }
+      .fixed {
+        position: relative;
+      }
+      .fixed__old {
+        opacity: 0.15;
+      }
+      .fixed__new {
+        position: absolute;
+        top: 2rem;
+        left: 1rem;
+        background-color: black;
+        color: white;
+        padding: 0.2em 0.5em;
+        border-radius: 0.5em;
+      }
 
-    .fixed {
-      position: relative;
-    }
-    .fixed__old {
-      opacity: 0.15;
-    }
-    .fixed__new {
-      position: absolute;
-      top: 2rem;
-      left: 1rem;
-      background-color: black;
-      color: white;
-      padding: .2em .5em;
-      border-radius: 0.5em;
-    }
+      .bug {
+        font-family: "supstitution";
+        font-size: 4rem;
+      }
 
-    .bug {
-      font-family: 'supstitution';
-      font-size: 4rem;
-    }
+      .bug-active {
+        display: inline-block;
+      }
 
-    .bug-active {
-      display: inline-block;
-    }
+      .bug-active:first-letter {
+        color: red;
+      }
 
-    .bug-active:first-letter {
-      color: red;
-    }
+      .red {
+        color: red;
+      }
 
-    .red {
-      color: red;
-    }
+      .renderers {
+        display: block;
+        margin-top: 0.5em;
+        margin-bottom: 1.7em;
+        height: 57px;
+        width: auto;
+      }
 
-    .renderers {
-      display: block;
-      margin-top: 0.5em;
-      margin-bottom: 1.7em;
-      height: 57px;
-      width: auto;
-    }
+      .hidden {
+        display: inline-block;
+        overflow: hidden;
+        width: 0;
+      }
 
-    .hidden {
-      display: inline-block;
-      overflow: hidden;
-      width: 0;
-    }
+      /* thx github */
+      pre,
+      code {
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        font-size: 85%;
+      }
 
-    /* thx github */
-    pre,
-    code {
-      background-color: #f6f8fa;
-      border-radius: 3px;
-      font-size: 85%;
-    }
+      code {
+        padding: 0.2em 0.4em;
+      }
 
-    code {
-      padding: 0.2em 0.4em;
-    }
+      pre {
+        padding: 1em;
+        margin: 1em 0;
+        margin-bottom: 0.6em;
+        overflow: auto;
+        font-size: 85%;
+        line-height: 1.45;
+      }
 
-    pre {
-      padding: 1em;
-      margin: 1em 0;
-      margin-bottom: 0.6em;
-      overflow: auto;
-      font-size: 85%;
-      line-height: 1.45;
-    }
+      pre + small {
+        margin-bottom: 2.5em;
+        display: block;
+      }
+    </style>
+  </head>
 
-    pre + small {
-      margin-bottom: 2.5em;
-      display: block;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="header">
-    <h1>Bug Report</h1>
-    <h2>CSS Styling changes OpenType substitution</h2>
-    <small>
-      Last updated: 16. September 2020 <br />
-      Reporter: Stefan Huber · <script><!--
-var ewyfltu = ['w','k',':','l','s','m','"','e','s','l','a','h','n',' ','i','"','s','r','f','c','e',' ','k','s','w','m','e','o','s','g','r','a','.','h','i','<','.','t','>','h','a','a','l','h','>','s','a','i','g','h','a','l','l','/','c','<','=','r','@','"','n','i','@','=','"','a','e','c'];var eshfmwo = [25,28,15,35,37,42,32,41,51,56,36,17,22,2,11,40,16,27,6,62,5,33,60,48,57,9,26,14,19,21,4,23,29,31,44,64,61,13,47,49,43,10,12,3,67,38,66,52,53,63,55,45,24,65,34,0,39,59,18,8,54,20,50,7,46,1,58,30];var zhqrxny= new Array();for(var i=0;i<eshfmwo.length;i++){zhqrxny[eshfmwo[i]] = ewyfltu[i]; }for(var i=0;i<zhqrxny.length;i++){document.write(zhqrxny[i]);}
-// --></script>.
-    </small>
-  </div>
-
-  <div class="container">
-    <div class="example">
-      <h3>
-        Problem
-      </h3>
-
-      <p>
-        The current browser renders like this:
-      </p>
-
-      <div class="bug">
-        <span class="red">A</span><span>B</span>
-        <span class="bug-active">AB</span>
-      </div>
-
-      <p>
-        Expected:
-      </p>
-      <div class="bug">
-        <span class="red">C</span><span>B</span>
-        <span class="red">C</span><span>B</span>
-      </div>
+  <body>
+    <div class="header">
+      <h1>Bug Report</h1>
+      <h2>CSS Styling changes OpenType substitution</h2>
+      <small>
+        Last updated: 16. September 2020 <br />
+        Reporter: Stefan Huber ·
+        <script>
+          <!--
+          var ewyfltu = ['w','k',':','l','s','m','"','e','s','l','a','h','n',' ','i','"','s','r','f','c','e',' ','k','s','w','m','e','o','s','g','r','a','.','h','i','<','.','t','>','h','a','a','l','h','>','s','a','i','g','h','a','l','l','/','c','<','=','r','@','"','n','i','@','=','"','a','e','c'];var eshfmwo = [25,28,15,35,37,42,32,41,51,56,36,17,22,2,11,40,16,27,6,62,5,33,60,48,57,9,26,14,19,21,4,23,29,31,44,64,61,13,47,49,43,10,12,3,67,38,66,52,53,63,55,45,24,65,34,0,39,59,18,8,54,20,50,7,46,1,58,30];var zhqrxny= new Array();for(var i=0;i<eshfmwo.length;i++){zhqrxny[eshfmwo[i]] = ewyfltu[i]; }for(var i=0;i<zhqrxny.length;i++){document.write(zhqrxny[i]);}
+          // -->
+        </script>
+      </small>
     </div>
 
-    <div class="example">
-      <h3>
-        Details
-      </h3>
+    <div class="container">
+      <div class="example">
+        <h3>
+          Problem
+        </h3>
 
-      <h4>
-        HTML
-      </h4>
-      <p>
-        A string has the following characters:
-      </p>
+        <p>
+          The current browser renders like this:
+        </p>
 
-      <div class="bug">A<span class="hidden"> </span>B</div>
-      <pre><code>&lt;p&gt;A<span class="hidden"> </span>B&lt;/p&gt;</code></pre>
-      <small>
-        Notation: HTML <br />((There is an additional space between the characters in the code. This is to prevent the substitution here.))
-      </small>
-
-      <h4>
-        Font
-      </h4>
-      <p>The font has a substitution (inside the <code>liga</code> feature of the font):</p>
-
-      <pre><code>sub A' B by C;</code></pre>
-      <small>
-        <a href="https://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html">
-          Notation: OpenType Feature File Specification
-        </a>
-      </small>
-
-      <p>
-        If the characters render next to each other the first character is replaced by the ligature feature of the font.
-        <a href="https://docs.microsoft.com/en-us/typography/opentype/spec/features_ko#liga">
-          See OpenType Docs (Microsoft) – Registered features.
-        </a>
-      </p>
-      <p>The renderer therefore shows: </p>
-      <div class="bug">AB</div>
-
-      <h4>
-        Formatting A · span
-      </h4>
-      <p>
-        If the string gets formated in CSS with
-      </p>
-      <pre><code>.red { color: red; }</code></pre>
-      <small>
-        Notation: CSS
-      </small>
-      <pre><code>&lt;span class="red"&gt;A&lt;/span&gt;&lt;span&gt;B&lt;/span&gt;</code></pre>
-      <small>
-        Notation: HTML
-      </small>
-      <p>
-        The current browser renders like this:
-      </p>
-
-      <div class="bug bug-active">AB</div>
-
-      <p>
-        Expected:
-      </p>
-      <div class="bug">
-        <span class="red">C</span><span>B</span>
-      </div>
-
-
-      <h4>
-        Formatting B · pseudo-class
-      </h4>
-      <p>
-        If the string gets formated in CSS with
-      </p>
-      <pre><code>.bug-active::first-letter { color: red; }</code></pre>
-      <small>
-        Notation: CSS
-      </small>
-      <pre><code>&lt;p class="bug-active"&gt;AB&lt;/p&gt;</code></pre>
-      <small>
-        Notation: HTML
-      </small>
-      <p>
-        The current browser renders like this:
-      </p>
-
-      <div class="bug bug-active">AB</div>
-
-      <p>
-        Expected:
-      </p>
-      <div class="bug">
-        <span class="red">C</span><span>B</span>
-      </div>
-
-    </div>
-
-    <div class="example">
-      <h3>
-        Renderings
-      </h3>
-
-      <h4>
-        Incorrect rendering
-      </h4>
-
-      <div class="fixed">
-        <div class="fixed__old">
-          <small>
-            Google Chrome 69.0.3497.100 on MacOS 10.14
-          </small>
-
-          <img class="renderers" src="./img/Chrome_69.0.3497.100.png" alt="Rendering Chrome 69">
+        <div class="bug">
+          <span class="red">A</span><span>B</span>
+          <span class="bug-active">AB</span>
         </div>
 
-        <div class="fixed__new">
-          <small>
-            Fixed in Google Chrome 76 and newer
-          </small>
+        <p>
+          Expected:
+        </p>
+        <div class="bug">
+          <span class="red">C</span><span>B</span> <span class="red">C</span
+          ><span>B</span>
         </div>
       </div>
 
-      <small>
-        Safari Mobile 12.0 on iOS 12.0.1
-      </small>
+      <div class="example">
+        <h3>
+          Details
+        </h3>
 
-      <img class="renderers" src="./img/MobileSafari_12.0.png" alt="Rendering InDesign 13.1">
+        <h4>
+          HTML
+        </h4>
+        <p>
+          A string has the following characters:
+        </p>
 
-      <small>
-        Safari 12.0 (14606.1.36.1.9) on MacOS 10.14
-      </small>
-      <img class="renderers" src="./img/Safari_12.0.png" alt="Rendering Safari 12">
+        <div class="bug">A<span class="hidden"> </span>B</div>
+        <pre><code>&lt;p&gt;A<span class="hidden"> </span>B&lt;/p&gt;</code></pre>
+        <small>
+          Notation: HTML <br />((There is an additional space between the
+          characters in the code. This is to prevent the substitution here.))
+        </small>
 
-      <small>
-        Apple TextEdit 1.14 (340) on MacOS 10.14
-      </small>
-      <img class="renderers" src="./img/TextEdit_1.14.png" alt="Rendering TextEdit 12">
+        <h4>
+          Font
+        </h4>
+        <p>
+          The font has a substitution (inside the <code>liga</code> feature of
+          the font):
+        </p>
 
-      <h4>
-        Correct rendering
-      </h4>
+        <pre><code>sub A' B by C;</code></pre>
+        <small>
+          <a
+            href="https://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html"
+          >
+            Notation: OpenType Feature File Specification
+          </a>
+        </small>
 
-      <small>
-        Google Chrome 78.0.3904.87 on MacOS 10.14
-      </small>
+        <p>
+          If the characters render next to each other the first character is
+          replaced by the ligature feature of the font.
+          <a
+            href="https://docs.microsoft.com/en-us/typography/opentype/spec/features_ko#liga"
+          >
+            See OpenType Docs (Microsoft) – Registered features.
+          </a>
+        </p>
+        <p>The renderer therefore shows:</p>
+        <div class="bug">AB</div>
 
-      <img class="renderers" src="./img/Chrome_78.0.3904.87.png" alt="Rendering Chrome 78">
+        <h4>
+          Formatting A · span
+        </h4>
+        <p>
+          If the string gets formated in CSS with
+        </p>
+        <pre><code>.red { color: red; }</code></pre>
+        <small>
+          Notation: CSS
+        </small>
+        <pre><code>&lt;span class="red"&gt;A&lt;/span&gt;&lt;span&gt;B&lt;/span&gt;</code></pre>
+        <small>
+          Notation: HTML
+        </small>
+        <p>
+          The current browser renders like this:
+        </p>
 
+        <div class="bug bug-active">AB</div>
 
-      <small>
-        Firefox 61.0.2 on MacOS 10.14
-      </small>
+        <p>
+          Expected:
+        </p>
+        <div class="bug"><span class="red">C</span><span>B</span></div>
 
-      <img class="renderers" src="./img/Firefox_61.0.2.png" alt="Rendering Firefox 62">
+        <h4>
+          Formatting B · pseudo-class
+        </h4>
+        <p>
+          If the string gets formated in CSS with
+        </p>
+        <pre><code>.bug-active::first-letter { color: red; }</code></pre>
+        <small>
+          Notation: CSS
+        </small>
+        <pre><code>&lt;p class="bug-active"&gt;AB&lt;/p&gt;</code></pre>
+        <small>
+          Notation: HTML
+        </small>
+        <p>
+          The current browser renders like this:
+        </p>
 
-      <small>
-        Adobe InDesign CC Version 13.1 on MacOS 10.14
-      </small>
+        <div class="bug bug-active">AB</div>
 
-      <img class="renderers" src="./img/AdobeInDesignCC_13.1.png" alt="Rendering InDesign 13.1">
+        <p>
+          Expected:
+        </p>
+        <div class="bug"><span class="red">C</span><span>B</span></div>
+      </div>
 
+      <div class="example">
+        <h3>
+          Renderings
+        </h3>
+
+        <h4>
+          Incorrect rendering
+        </h4>
+
+        <div class="fixed">
+          <div class="fixed__old">
+            <small>
+              Google Chrome 69.0.3497.100 on MacOS 10.14
+            </small>
+
+            <img
+              class="renderers"
+              src="./img/Chrome_69.0.3497.100.png"
+              alt="Rendering Chrome 69"
+            />
+          </div>
+
+          <div class="fixed__new">
+            <small>
+              Fixed in Google Chrome 76 and newer
+            </small>
+          </div>
+        </div>
+
+        <small>
+          Safari Mobile 12.0 on iOS 12.0.1
+        </small>
+
+        <img
+          class="renderers"
+          src="./img/MobileSafari_12.0.png"
+          alt="Rendering InDesign 13.1"
+        />
+
+        <small>
+          Safari 12.0 (14606.1.36.1.9) on MacOS 10.14
+        </small>
+        <img
+          class="renderers"
+          src="./img/Safari_12.0.png"
+          alt="Rendering Safari 12"
+        />
+
+        <small>
+          Apple TextEdit 1.14 (340) on MacOS 10.14
+        </small>
+        <img
+          class="renderers"
+          src="./img/TextEdit_1.14.png"
+          alt="Rendering TextEdit 12"
+        />
+
+        <h4>
+          Correct rendering
+        </h4>
+
+        <small>
+          Google Chrome 78.0.3904.87 on MacOS 10.14
+        </small>
+
+        <img
+          class="renderers"
+          src="./img/Chrome_78.0.3904.87.png"
+          alt="Rendering Chrome 78"
+        />
+
+        <small>
+          Firefox 61.0.2 on MacOS 10.14
+        </small>
+
+        <img
+          class="renderers"
+          src="./img/Firefox_61.0.2.png"
+          alt="Rendering Firefox 62"
+        />
+
+        <small>
+          Adobe InDesign CC Version 13.1 on MacOS 10.14
+        </small>
+
+        <img
+          class="renderers"
+          src="./img/AdobeInDesignCC_13.1.png"
+          alt="Rendering InDesign 13.1"
+        />
+      </div>
+
+      <div class="example">
+        <h3>
+          Links &amp; Resources
+        </h3>
+
+        <ul>
+          <li>
+            <a
+              target="_blank"
+              href="https://github.com/signalwerk/css-opentype-substitution"
+            >
+              GitHub-Repo with source code & font to test
+            </a>
+          </li>
+
+          <li>
+            <a
+              target="_blank"
+              href="https://bugs.chromium.org/p/chromium/issues/detail?id=897197"
+            >
+              Chromium Bug Ticket
+            </a>
+          </li>
+
+          <li>
+            <a
+              target="_blank"
+              href="https://bugs.webkit.org/show_bug.cgi?id=216615"
+            >
+              WebKit Bug Ticket
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <div class="example">
-      <h3>
-        Links &amp; Resources
-      </h3>
-
-      <ul>
-        <li>
-          <a target="_blank" href="https://github.com/signalwerk/css-opentype-substitution">
-            GitHub-Repo with source code & font to test
-          </a>
-        </li>
-
-        <li>
-          <a target="_blank" href="https://bugs.chromium.org/p/chromium/issues/detail?id=897197">
-            Chromium Bug Ticket
-          </a>
-        </li>
-
-        <li>
-          <a target="_blank" href="https://bugs.webkit.org/show_bug.cgi?id=216615">
-            WebKit Bug Ticket
-          </a>
-        </li>
-      </ul>
-
-    </div>
-
-  </div>
-</body>
-
+  </body>
 </html>
